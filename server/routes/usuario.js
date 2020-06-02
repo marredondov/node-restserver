@@ -4,8 +4,10 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const app = express()
 
+const { verificarToken, verificarAdminRole } = require('../middlewares/autenticacion');
 
-app.get('/usuario', function(req, res) {
+
+app.get('/usuario', verificarToken, (req, res) => {
 
     let desde = Number(req.query.desde || 0);
     let limite = Number(req.query.limite || 5);
@@ -36,7 +38,7 @@ app.get('/usuario', function(req, res) {
         });
 })
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificarToken, verificarAdminRole], (req, res) => {
     let body = req.body;
     let usuario = new Usuario({
         nombre: body.nombre,
@@ -62,7 +64,7 @@ app.post('/usuario', function(req, res) {
     });
 })
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
     let id = req.params.id;
     //let body = req.body;
 
@@ -86,7 +88,7 @@ app.put('/usuario/:id', function(req, res) {
 
 })
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
     let id = req.params.id;
 
     //eliminacion fisica

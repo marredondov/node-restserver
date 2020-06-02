@@ -8,8 +8,9 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
     // parse application/json
 app.use(bodyParser.json())
-    // definicion de peticiones para usuario
-app.use(require('./routes/usuario'));
+    //rutas
+app.use(require('./routes/index'));
+
 //conexion a base de datos
 connect.connectMongoDB().then(resp => console.log('ok')).catch(err => console.log('err'));
 //Web Server Start

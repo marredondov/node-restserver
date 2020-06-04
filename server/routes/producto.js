@@ -17,7 +17,7 @@ app.get('/productos', (req, res) => {
     let condicion = {
         disponible: true
     }
-    Producto.find(condicion, 'nombre descripcion precioUni')
+    Producto.find(condicion, 'nombre descripcion precioUni img')
         .skip(desde)
         .limit(limite)
         .sort('nombre')
@@ -113,6 +113,7 @@ app.post('/productos', verificarToken, (req, res) => {
     producto.descripcion = body.descripcion;
     producto.disponible = body.disponible;
     producto.categoria = body.categoria;
+    producto.img = body.img;
     producto.usuario = req.usuario._id;
 
     producto.save((err, productoDB) => {

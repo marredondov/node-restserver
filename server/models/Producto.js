@@ -28,6 +28,11 @@ let ProductoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: [true, 'El usuario es necesario']
+    },
+    img: {
+        type: String,
+        required: false,
+        default: 'no-imagen.jpg'
     }
 });
 
